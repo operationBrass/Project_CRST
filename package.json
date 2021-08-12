@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "When you cant remember sh..stuff.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d lib",
-    "start": "",
+    "start": "nodemon src/index.js",
     "babel-node": "babel-node --presets='@babel/preset-env' --ignore='foo|bar|baz'"
   },
   "repository": {
@@ -26,11 +27,10 @@
   },
   "homepage": "https://github.com/operationBrass/Project_CRST#readme",
   "dependencies": {
-    "apollo-server": "^3.1.2",
+    "apollo-server-express": "^3.1.2",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
-    "graphql": "^15.5.1",
-    "save-dev": "0.0.1-security"
+    "graphql": "^15.5.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",
