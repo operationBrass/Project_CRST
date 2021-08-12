@@ -5,6 +5,7 @@ import { ApolloServer, gql } from 'apollo-server-express';
 import express from 'express';
 
 //what operations i support? 
+//this is for the connection to apolloserver / graphql
 const typeDefs = gql`
     type Query {
         hello: String!
@@ -16,6 +17,21 @@ const resolvers = {
         hello: () => "Hi"
     }
 };
+
+// setup mongoose connections (mongoDB package)
+/*-----------------------------------------------*/
+import mongoose from 'mongoose';
+mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true, useUnifiedTopology: true});
+
+const db = mongoose.connection;
+db.on('error',console.error.bind(console,'connection error:'));
+db.once('open',function() {
+    console.log("connected to test database")
+});
+
+/*-----------------------------------------------*/
+
+// get the server started
 
 async function startApolloServer(typeDefs, resolvers) {
 
