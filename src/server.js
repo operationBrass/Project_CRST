@@ -1,28 +1,20 @@
 //template code provided in apollo docs. 
 //https://www.apollographql.com/docs/apollo-server/integrations/middleware/
 
-import { ApolloServer, gql } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
+import 'dotenv';
+import {typeDefs, resolvers} from './schema.js'
+
 
 //what operations i support? 
 //this is for the connection to apolloserver / graphql
-const typeDefs = gql`
-    type Query {
-        hello: String!
-    }
-`;
 
-const resolvers = {
-    Query: {
-        hello: () => "Hi"
-    }
-};
 
 // setup mongoose connections (mongoDB package)
 /*-----------------------------------------------*/
 import mongoose from 'mongoose';
 mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true, useUnifiedTopology: true});
-
 const db = mongoose.connection;
 db.on('error',console.error.bind(console,'connection error:'));
 db.once('open',function() {
@@ -33,10 +25,10 @@ db.once('open',function() {
 
 // get the server started
 
-async function startApolloServer(typeDefs, resolvers) {
+async function startApolloServer(typeDefs,resolvers) {
 
   // Same ApolloServer initialization as before
-  const server = new ApolloServer({ typeDefs, resolvers });
+  const server = new ApolloServer({ typeDefs,resolvers });
 
   // Required logic for integrating with Express
   await server.start();
