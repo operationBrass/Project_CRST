@@ -1,20 +1,40 @@
+//dependency imports 
 const {ApolloServer} = require('apollo-server');
 const gql = require('graphql-tag');
 const mongoose  = require('mongoose');
 
-const {MONGODB} = require('./config');
+//relative imports
+const Post = require ('./models/Post');
+
+const {MONGODB} = require('./config'); // destructing.. is a file and not a dependency..
+const { getHeapCodeStatistics } = require('v8');
 
 const typeDefs = gql`
+    type Post{
+        id: ID!
+        body: String!
+        createdAt: String!
+        username: String!
+    }
 type Query{
-    sayHi: String! #! means its required field
-} `
+   getPosts: [Post]
+
+}
+`;
 
 const resolvers = {
     Query:{
-        sayHi: () => 'Hello Mate'
+        async getPosts(){
+            try
+            {
+                const posts = await Post.find();
+                return posts;
+            }catch(err){
+                throw new Error(err);
+            }
+        }
     }
 }
-
 
 const server = new ApolloServer({
     typeDefs,
@@ -29,3 +49,4 @@ mongoose.connect(MONGODB,{useNewUrlParser: true,useUnifiedTopology: true})
     .then((res) => {
         console.log(`Server running at ${res.url}`)
     });
+
