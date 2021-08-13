@@ -4,31 +4,30 @@ const gql = require('graphql-tag');
 const mongoose  = require('mongoose');
 
 //relative imports
-const Post = require ('./models/Post');
+const Note = require ('./models/Note');
 
 const {MONGODB} = require('./config'); // destructing.. is a file and not a dependency..
-const { getHeapCodeStatistics } = require('v8');
+
 
 const typeDefs = gql`
-    type Post{
+    type Note{
         id: ID!
         body: String!
         createdAt: String!
         username: String!
     }
 type Query{
-   getPosts: [Post]
-
+   getNotes: [Note]
 }
 `;
 
 const resolvers = {
     Query:{
-        async getPosts(){
+        async getNotes(){
             try
             {
-                const posts = await Post.find();
-                return posts;
+                const notes = await Note.find();
+                return notes;
             }catch(err){
                 throw new Error(err);
             }
