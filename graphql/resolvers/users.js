@@ -1,5 +1,6 @@
 const bcrypyt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const {UserInputError} = require("apollo-server");
 
 const User = require('../../models/User');
 const {SECRET_KEY} = require('../../config')
@@ -15,8 +16,15 @@ module.exports = {
             ){ 
             //TODO: validation user data
             //TODO: make sure user doesnt already exist
-            //TODO: Hash password before we store
-            //TODO: auth token JWA.
+
+            const user = User.findOne({ username });
+            if(user){
+                throw new UserInputError("username is already in use",
+                {errors:{
+                    username:"this username is taken"
+                    }
+                })
+            }
             password = await bcrypyt.hash(password,12);
             const newUser = new User({
                 username,
