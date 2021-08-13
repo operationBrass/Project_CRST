@@ -4,6 +4,7 @@ const {UserInputError} = require("apollo-server");
 
 const User = require('../../models/User');
 const {SECRET_KEY} = require('../../config')
+const {validateRegisterInput} = require('../../util/validators') // needs destructing as not default export.
 
 
 module.exports = {
@@ -14,10 +15,15 @@ module.exports = {
                 context,
                 info
             ){ 
-            //TODO: validation user data
+           
+            const {valid, errors} = validateRegisterInput(username,password,confirmPassword)
+            if(!valid)
+            {
+                throw new UserInputError("erorrs",{errors})
+            }
             //TODO: make sure user doesnt already exist
 
-            const user = User.findOne({ username });
+            const user = await User.findOne({ username });
             if(user){
                 throw new UserInputError("username is already in use",
                 {errors:{
