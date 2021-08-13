@@ -19,7 +19,9 @@
   "homepage": "https://github.com/operationBrass/Project_CRST#readme",
   "dependencies": {
     "apollo-server": "^3.1.2",
+    "bcryptjs": "^2.4.3",
     "graphql": "^15.5.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.7"
   },
   "devDependencies": {
