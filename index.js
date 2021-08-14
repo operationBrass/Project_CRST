@@ -11,7 +11,10 @@ const resolvers = require('./graphql/resolvers/')
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    context: ({req}) => ({req}) 
+    /* we take the request from express
+    we pass it into the context so we can access the request body*/
 });
 
 mongoose.connect(MONGODB,{useNewUrlParser: true,useUnifiedTopology: true})

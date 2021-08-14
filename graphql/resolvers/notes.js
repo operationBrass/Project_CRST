@@ -1,4 +1,5 @@
-const Note = require('../../models/Note')
+const Note = require('../../models/Note');
+const checkAuth = require("../../util/checkAuth");
 
 module.exports = {
     Query:{
@@ -24,5 +25,23 @@ module.exports = {
                 throw new Error(err);
             }
         }
+    },
+Mutation: {
+    async createNote(parent,{body},context){
+        
+        //checking the user has valid token
+        const user = checkAuth(context);
+        console.log(user);
+        //if we make it past the above we have no errors 
+        const newNote = new Note({
+            body,
+            user: user.id,
+            username: user.username,
+            createdAt: new Date().toISOString()
+        });
+        const note = newNote.save();
+        return note;
+        }
     }
 }
+// user logins gets a token and that needs to be in header of requests.

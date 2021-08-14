@@ -6,6 +6,7 @@ module.exports = {
         ...noteResolvers.Query // spread operator
     },
     Mutation:{
-        ...userResolvers.Mutation
+        ...userResolvers.Mutation,
+        ...noteResolvers.Mutation
     }
 }
