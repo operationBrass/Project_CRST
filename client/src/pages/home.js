@@ -4,8 +4,8 @@ import gql from 'graphql-tag';
 
 
 function Home() {
-     const { loading, data } = useQuery(FETCH_NOTES_QUERY)
-    console.log(data)
+    const { loading, data } = useQuery(FETCH_NOTES_QUERY)
+    console.log(JSON.stringify(data)) //checking result of the query
     return(
         <div> Home Page </div>
     )
@@ -13,18 +13,12 @@ function Home() {
 
 const FETCH_NOTES_QUERY = gql`
 {
-getNotes{
-    id
-    body
-    createdAt
-    username
-    comments
-    {
-        id
-        body
-        createdAt
-        username
-    }
+getNotes
+{
+  id
+  body
+  username
+  createdAt
 }
 }`
 
