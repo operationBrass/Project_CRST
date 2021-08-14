@@ -13,16 +13,21 @@ module.exports = gql`
         username: String!
         createdAt: String!
     }
-input RegisterInput{
+    input RegisterInput{
     username: String!
     password: String!
     confirmPassword: String!
-}
-type Query{
-   getNotes: [Note]
-}
-type Mutation{
-    register(registerInput: RegisterInput): User!
-    login(username:String!,password: String!): User!
-}
+    }
+
+    type Query{
+   getNotes: [Note] # get all notes
+   getNote(noteId: ID!): Note # get a singe note. 
+    }
+
+    type Mutation{
+        register(registerInput: RegisterInput): User!
+        login(username:String!,password: String!): User!
+        createNote(body:String!): Note!
+        deletePost(body:String!): String! # it does not matter what this returns as long it deletes..
+    }
 `;

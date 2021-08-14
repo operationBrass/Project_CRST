@@ -10,6 +10,19 @@ module.exports = {
             }catch(err){
                 throw new Error(err);
             }
+        },
+        
+        async getNote(parent,{noteId}){
+            try{
+                const note = await Note.findById(noteId);
+                if(note){
+                    return note;
+                } else{
+                    throw new error("note not found")
+                }
+            } catch(err){
+                throw new Error(err);
+            }
         }
     }
 }
