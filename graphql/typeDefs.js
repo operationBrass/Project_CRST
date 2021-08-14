@@ -6,6 +6,13 @@ module.exports = gql`
         body: String!
         createdAt: String!
         username: String!
+        comments: [Comment]! #return array even if empty
+    },
+    type Comment{
+        id: ID!
+        createdAt: String!
+        username: String!
+        body: String!
     }
     type User{
         id: ID!
@@ -29,5 +36,7 @@ module.exports = gql`
         login(username:String!,password: String!): User!
         createNote(body:String!): Note!
         deletePost(body:String!): String! # it does not matter what this returns as long it deletes..
+        createComment(noteId:String!,body:String!): Note!
+        deleteComment(noteId: ID!, commentId: ID!): Note!
     }
 `;

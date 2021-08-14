@@ -1,4 +1,4 @@
-const bcrypyt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {UserInputError} = require("apollo-server");
 
@@ -62,7 +62,7 @@ module.exports = {
                     }
                 })
             }
-            password = await bcrypyt.hash(password,12);
+            password = await bcrypt.hash(password,12);
             const newUser = new User({
                 username,
                 password,

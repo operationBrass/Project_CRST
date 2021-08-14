@@ -1,10 +1,10 @@
 const { model, Schema } = require('mongoose');
 
-const postSchema = new Schema({
+const noteSchema = new Schema({
     body: String,
     username: String,
     createdAt: String,
-    notes: [
+    comments: [
         {
             body:String,
             username: String,
@@ -17,4 +17,4 @@ const postSchema = new Schema({
     }
 });
 
-module.exports = model("Note", postSchema);
+module.exports = model("Note", noteSchema);
