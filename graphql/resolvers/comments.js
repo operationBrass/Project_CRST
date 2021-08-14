@@ -31,7 +31,6 @@ module.exports = {
             const note = await Note.findById(noteId)
             if(note)
             {
-                console.log(note.id)
                 const commentToDelete = note.comments.findIndex(c => c.id === commentId)
                 note.comments.splice(commentToDelete,1); // start at the comment index and delete 1 array element
                 await note.save();
