@@ -1,5 +1,5 @@
 import React from 'react'
-import { fromPromise, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 
 
