@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Container, Header } from 'semantic-ui-react';
+import { Button,Input, Container, Header } from 'semantic-ui-react';
 
 class Register extends React.Component {
 
@@ -16,18 +16,27 @@ class Register extends React.Component {
         this.setState({ [name]: value });
     }
 
+    onSubmit = () => {
+        console.log(this.state);
+    }
+
     render() {
-
         const {username, password,confirmPass} = this.state
-
         return (
-            <Container text>
+            <Container textAlign="center" text>
                 <Header as="h2"> Register </Header>
                 <Input name="username" onChange={this.onChange}  value={username} placeholder="Username" fluid />
                 <br/>
                 <Input name="password" onChange={this.onChange} type="password" value={password} placeholder="Password" fluid />
                 <br/>
                 <Input name="confirmPass" onChange={this.onChange} type="password" value={confirmPass} placeholder="Confirm Password" fluid />
+                <br/>
+                <Button onClick={this.onSubmit} primary>
+                Register
+                </Button>
+                <Button secondary> 
+                Back
+                </Button>
             <p></p>
             </Container>
         )
