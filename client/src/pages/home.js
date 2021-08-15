@@ -9,11 +9,12 @@ import 'codemirror/theme/monokai.css';
 
 
 function Home() {
-    const code = 'const aRcher = 0;';
+   
 
     const { loading, data,error }  = useQuery(FETCH_NOTES_QUERY);
     if (loading) return 'Loading...';
     if (error) throw new Error("error while retrieving comments");
+    const code = data.getNotes[0].body;
     return (
        
         <Grid centered columns={2}>
