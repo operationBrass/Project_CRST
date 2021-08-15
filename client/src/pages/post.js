@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext,useState} from 'react'
 import { Button, Form } from 'semantic-ui-react'
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
@@ -8,17 +8,22 @@ import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
 import { AuthContext } from '../context/auth';
 
-
-
-
 function Post(props) {
     const context = useContext(AuthContext);
 
-    if (context === null)
-    {
-        props.history.push("/login");
+    const [codeSnip, setCodeSnip] = useState("");
+
+    const onChange = (event) => {
+        setCodeSnip(event.doc.getValue());
     }
+
+    const onSubmit = (event) => {
+        event.preventDefault();
     
+        
+    }
+
+
     const code = "your code here";
     return (<div><Form>
         <Form.Field>
@@ -27,7 +32,8 @@ function Post(props) {
         </Form.Field>
 
         <CodeMirror
-                    value={code}
+            name="codeMirror"
+            onChange={onChange}
                     options={{
                         theme: 'monokai',
                         keyMap: 'sublime',
@@ -35,7 +41,7 @@ function Post(props) {
                     }}
                     />
      <br/>
-        <Button type='submit'>Submit</Button>
+        <Button onClick={onSubmit} type='submit'>Submit</Button>
     </Form></div>)
 }
 

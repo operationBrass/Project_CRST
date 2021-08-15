@@ -7,6 +7,7 @@ import { AuthContext } from '../context/auth';
 function Register(props)
 {
     const context = useContext(AuthContext)
+    
        // Here we set two state variables for firstName and lastName using `useState`
     const [values, setValues] = useState({
         username: "",
@@ -21,8 +22,7 @@ function Register(props)
 
     const [addUser, { loading }] = useMutation(REGISTER_USER, {
         update(proxy, result) { //proxy holds meta data. result is result and this runs if mutation was successful.
-            context.login(result.data.login)
-            console.log("you in");
+            context.login(result.data.token)
             props.history.push('/');
         },
         variables: values 
