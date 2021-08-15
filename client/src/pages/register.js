@@ -1,9 +1,12 @@
-import React, {useState} from 'react'
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-import { gql } from 'graphql-tag'
-import { useMutation } from '@apollo/client'
-function Login(props)
+import React, { useState, useContext } from 'react';
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import { gql } from 'graphql-tag';
+import { useMutation } from '@apollo/client';
+import { AuthContext } from '../context/auth';
+
+function Register(props)
 {
+    const context = useContext(AuthContext)
        // Here we set two state variables for firstName and lastName using `useState`
     const [values, setValues] = useState({
         username: "",
@@ -18,7 +21,9 @@ function Login(props)
 
     const [addUser, { loading }] = useMutation(REGISTER_USER, {
         update(proxy, result) { //proxy holds meta data. result is result and this runs if mutation was successful.
-            console.log(result);
+            context.login(result.data.login)
+            console.log("you in");
+            props.history.push('/');
         },
         variables: values 
     });
@@ -26,7 +31,7 @@ function Login(props)
     const onSubmit = (event) => {
         event.preventDefault();
         addUser()
-        props.history.push('/');
+        
     }
 
 
@@ -96,4 +101,4 @@ mutation register(
     }
 }`;
 
-export default Login;
+export default Register;
