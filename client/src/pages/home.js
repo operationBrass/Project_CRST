@@ -1,13 +1,14 @@
 import React from 'react'
-import { useQuery } from '@apollo/client';
+import { fromPromise, useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
+
 
 
 function Home() {
     const { loading, data } = useQuery(FETCH_NOTES_QUERY)
     console.log(JSON.stringify(data)) //checking result of the query
     return(
-        <div> Home Page </div>
+        <div><h1>Home</h1> </div>
     )
 }
 
@@ -19,6 +20,11 @@ getNotes
   body
   username
   createdAt
+  comments
+  {
+      id
+      body
+  }
 }
 }`
 
