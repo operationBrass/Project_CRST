@@ -21,7 +21,12 @@ function Login()
     const onSubmit = () => {
         console.log(`${username}, ${password},${confirmPass}`);
     }
-    return (<Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+
+    //semantic template sign in / registter form with modified event handling and modified styling etc.
+    return (
+        <div>
+        <div class="ui divider"></div>
+        <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
             <Header as='h2' color='teal' textAlign='center'>
                 <Image src='/logo.png' /> Register a new account
@@ -58,7 +63,8 @@ function Login()
                 Already with us? <a href='/login'>Login</a>
             </Message>
         </Grid.Column>
-    </Grid>
+            </Grid>
+            </div>
     );
 }
 

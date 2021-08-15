@@ -1,14 +1,14 @@
 import React from 'react'
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
-
+import MainMenu from '../components/menu'
 
 
 function Home() {
     const { loading, data } = useQuery(FETCH_NOTES_QUERY)
     console.log(JSON.stringify(data)) //checking result of the query
     return(
-        <div><h1>Home</h1> </div>
+        <div><MainMenu> </MainMenu> <h1>Home</h1> </div>
     )
 }
 

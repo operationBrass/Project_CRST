@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
+
 function Login()
 {
        // Here we set two state variables for firstName and lastName using `useState`
@@ -18,7 +19,12 @@ function Login()
     const onSubmit = () => {
         console.log(`${username}, ${password}`);
     }
-    return (<Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+     //semantic template sign in / registter form with modified event handling and modified styling etc.
+     return (
+         <div>
+        
+        <div class="ui divider"></div>
+        <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
             <Header as='h2' color='teal' textAlign='center'>
                 <Image src='/logo.png' /> Log-in to your account
@@ -45,7 +51,8 @@ function Login()
                 New to us? <a href='/register'>Sign Up</a>
             </Message>
         </Grid.Column>
-    </Grid>
+            </Grid>
+            </div>
     );
 }
 

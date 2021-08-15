@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
-import { Dropdown, Icon, Input, Menu } from 'semantic-ui-react'
+import { Icon, Input, Menu } from 'semantic-ui-react'
 
-function MenuExampleSubMenu() {
+export default class MainMenu extends Component {
+  state = {}
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+  render() {
+    const { activeItem } = this.state
 
     return (
       <Menu vertical>
@@ -12,13 +18,6 @@ function MenuExampleSubMenu() {
         <Menu.Item>
           Home
           <Menu.Menu>
-            <Menu.Item
-              name='search'
-              active={activeItem === 'search'}
-              onClick={this.handleItemClick}
-            >
-              Search
-            </Menu.Item>
             <Menu.Item
               name='add'
               active={activeItem === 'add'}
@@ -51,14 +50,7 @@ function MenuExampleSubMenu() {
         >
           Messages
         </Menu.Item>
-
-        <Dropdown item text='More'>
-          <Dropdown.Menu>
-            <Dropdown.Item icon='edit' text='Edit Profile' />
-            <Dropdown.Item icon='globe' text='Choose Language' />
-            <Dropdown.Item icon='settings' text='Account Settings' />
-          </Dropdown.Menu>
-        </Dropdown>
       </Menu>
     )
   }
+}
