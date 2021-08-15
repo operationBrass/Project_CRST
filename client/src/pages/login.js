@@ -1,47 +1,52 @@
-import React, {useState} from 'react';
-import { Button,Input, Container, Header } from 'semantic-ui-react';
+import React, {useState} from 'react'
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
-function Login() {
-    
-// Here we set two state variables for firstName and lastName using `useState`
-  const [username, setUserName] = useState('');
-  const [password, setPassword] = useState('');
-
+function Login()
+{
+       // Here we set two state variables for firstName and lastName using `useState`
+       const [username, setUserName] = useState('');
+       const [password, setPassword] = useState('');
+     
     const onChange = (event) => {
         //each time the user changes a value in the textboxes this event is triggered
-      //destructing the target object for name and value
+        //destructing the target object for name and value
         // [name] using the prop name to convert it into the name of the element who triggered
         const { name, value } = event.target;
-
-    // Ternary statement that will call either setFirstName or setLastName based on what field the user is typing in
-    return name === 'username' ? setUserName(value) : setPassword(value);
-        
+        return name === 'username' ? setUserName(value) : setPassword(value);
     }
 
     const onSubmit = () => {
         console.log(`${username}, ${password}`);
     }
-
-    const onBack = () => {
-        console.log("user want back");
-    }
-    
-        return (
-            <Container textAlign="center" text>
-                <Header as="h2"> Login </Header>
-                <Input name="username" onChange={onChange}  value={username} placeholder="Username" fluid />
-                <br/>
-                <Input name="password" onChange={onChange} type="password" value={password} placeholder="Password" fluid />
-                <br/>
-                <Button onClick={onSubmit} primary>
-                Login
-                </Button>
-                <Button secondary> 
-                Back
-                </Button>
-            <p></p>
-            </Container>
-        )
+    return (<Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+        <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as='h2' color='teal' textAlign='center'>
+                <Image src='/logo.png' /> Log-in to your account
+            </Header>
+            <Form size='large'>
+                <Segment stacked>
+                    <Form.Input name="username" value={username} onChange={onChange} fluid icon='user' iconPosition='left' placeholder='Username' />
+                    <Form.Input
+                        fluid
+                        icon='lock'
+                        iconPosition='left'
+                        placeholder='Password'
+                        type='password'
+                        name='password'
+                        value={password}
+                        onChange={onChange}
+                    />
+                    <Button onClick={onSubmit} color='teal' fluid size='large'>
+                        Login
+                    </Button>
+                </Segment>
+            </Form>
+            <Message>
+                New to us? <a href='#'>Sign Up</a>
+            </Message>
+        </Grid.Column>
+    </Grid>
+    );
 }
 
 export default Login;

@@ -3,7 +3,7 @@ import { Button,Input, Container, Header } from 'semantic-ui-react';
 
 function Register() {
     
-// Here we set two state variables for firstName and lastName using `useState`
+// Here we set state variables using `useState`
   const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
@@ -14,7 +14,7 @@ function Register() {
         // [name] using the prop name to convert it into the name of the element who triggered
         const { name, value } = event.target;
 
-    // Ternary statement that will call either setFirstName or setLastName based on what field the user is typing in
+
         if (name === "username")return setUserName(value)
         else if (name === "password") return setPassword(value)
         else return setConfirmPass(value)
@@ -36,7 +36,7 @@ function Register() {
                 <br/>
                 <Input name="password" onChange={onChange} type="password" value={password} placeholder="Password" fluid />
                 <br />
-                <Input name="confirmPass" onChange={onChange} type="password" value={confirmPass} placeholder="Password" fluid />
+                <Input name="confirmPass" onChange={onChange} type="password" value={confirmPass} placeholder="Confirm Password" fluid />
                 <br/>
                 <Button onClick={onSubmit} primary>
                 Login
