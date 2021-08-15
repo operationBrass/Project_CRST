@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import { gql } from 'graphql-tag'
 import { useMutation } from '@apollo/client'
-function Login()
+function Login(props)
 {
        // Here we set two state variables for firstName and lastName using `useState`
     const [values, setValues] = useState({
@@ -26,6 +26,7 @@ function Login()
     const onSubmit = (event) => {
         event.preventDefault();
         addUser()
+        props.history.push('/');
     }
 
 

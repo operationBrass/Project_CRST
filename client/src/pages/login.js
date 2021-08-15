@@ -1,37 +1,48 @@
 import React, {useState} from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { gql } from 'graphql-tag'
+import { useMutation } from '@apollo/client'
 
-
-function Login()
+function Login(props)
 {
        // Here we set two state variables for firstName and lastName using `useState`
-       const [username, setUserName] = useState('');
-       const [password, setPassword] = useState('');
-     
+    const [values, setValues] = useState({
+        username: "",
+        password: "",
+    });
+
     const onChange = (event) => {
-        //each time the user changes a value in the textboxes this event is triggered
-        //destructing the target object for name and value
-        // [name] using the prop name to convert it into the name of the element who triggered
-        const { name, value } = event.target;
-        return name === 'username' ? setUserName(value) : setPassword(value);
+        //seems like a better way per mr 'Classed' examples
+        setValues({...values,[event.target.name]:event.target.value})
+    };
+
+    const [loginUser, { loading }] = useMutation(LOGIN_USER, {
+        update(proxy, result) { //proxy holds meta data. result is result and this runs if mutation was successful.
+            console.log(result);
+        },
+        variables: values 
+    });
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+        loginUser()
+        props.history.push('/');
     }
 
-    const onSubmit = () => {
-        console.log(`${username}, ${password}`);
-    }
-     //semantic template sign in / registter form with modified event handling and modified styling etc.
-     return (
-         <div>
-        
-        <div class="ui divider"></div>
+
+
+    //semantic template sign in / registter form with modified event handling and modified styling etc.
+    return (
+        <div>
+        <div className="ui divider"></div>
         <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
             <Header as='h2' color='teal' textAlign='center'>
-                <Image src='/logo.png' /> Log-in to your account
+                <Image src='/logo.png' /> Login
             </Header>
             <Form size='large'>
-                <Segment stacked>
-                    <Form.Input name="username" value={username} onChange={onChange} fluid icon='user' iconPosition='left' placeholder='Username' />
+                <Segment>
+                    <Form.Input name="username" value={values.username} onChange={onChange} fluid icon='user' iconPosition='left' placeholder='Username' />
                     <Form.Input
                         fluid
                         icon='lock'
@@ -39,21 +50,36 @@ function Login()
                         placeholder='Password'
                         type='password'
                         name='password'
-                        value={password}
+                        value={values.password}
                         onChange={onChange}
                     />
                     <Button onClick={onSubmit} color='teal' fluid size='large'>
-                        Login
+                        Register
                     </Button>
                 </Segment>
             </Form>
             <Message>
-                New to us? <a href='/register'>Sign Up</a>
+                New Here? <a href='/register'>Sign up</a>
             </Message>
         </Grid.Column>
             </Grid>
             </div>
     );
 }
+
+//here we reference variables in the gql with $
+const LOGIN_USER = gql`
+
+mutation login(
+    $username: String!
+    $password: String!
+){
+    login(
+            username:$username
+            password:$password
+    ){
+        id username createdAt token
+    }
+}`;
 
 export default Login;
