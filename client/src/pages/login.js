@@ -20,7 +20,8 @@ function Login(props)
 
     const [loginUser, { loading }] = useMutation(LOGIN_USER, {
         update(proxy, result) { //proxy holds meta data. result is result and this runs if mutation was successful.
-            context.login(result.data.token)
+            console.log(result.data.login)
+            context.login(result.data.login)
             props.history.push('/');
         },
         variables: values 

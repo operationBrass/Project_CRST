@@ -22,7 +22,8 @@ function Register(props)
 
     const [addUser, { loading }] = useMutation(REGISTER_USER, {
         update(proxy, result) { //proxy holds meta data. result is result and this runs if mutation was successful.
-            context.login(result.data.token)
+            console.log(result.data.register)
+            context.login(result.data.register)
             props.history.push('/');
         },
         variables: values 

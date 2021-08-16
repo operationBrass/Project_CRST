@@ -1,74 +1,32 @@
-import React from 'react'
-import { useQuery } from '@apollo/client';
-import gql from 'graphql-tag';
-import MainMenu from '../components/menu'
-import { Rail, Form, Grid, Header, TextArea, Message, Segment } from 'semantic-ui-react'
-import CodeMirror from '@uiw/react-codemirror';
+import React, {useState} from 'react'
+import Main from '../components/Main'
 import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
+import Heading from '../components/Header'
+import Slidebar from '../components/Slidebar';
+import { Container, Grid } from 'semantic-ui-react';
 
 
-function Home() {
-   
-
-    const { loading, data,error }  = useQuery(FETCH_NOTES_QUERY);
-    if (loading) return 'Loading...';
-    if (error) throw new Error("error while retrieving comments");
-    const code = data.getNotes[0].body;
+function Home(props) {
     return (
-       
-        <Grid centered columns={2}>
-        <Segment>
-                <Rail position="left"> <MainMenu> </MainMenu> </Rail>
-   
-                <Grid.Column>
-                <Segment>
-    <Header as='h2' attached='top'>
-    <Message>{data.getNotes[0].username} </Message>
-    </Header>
-    <Segment attached>
-    </Segment>
-                </Segment>
-                
-                    <CodeMirror
-                    value={code}
-                    options={{
-                        theme: 'monokai',
-                        keyMap: 'sublime',
-                        mode: 'jsx',
-                    }}
-                    />
-                    
-                <Segment>
-                        <Header as="h3">Comments</Header>
-                    </Segment>
-                    <Grid.Row>
-                        {data.getNotes[0].comments.map(note => {
-                            return <Message color="red" key={note.id}>{note.body}</Message>
-                        })}
-                        </Grid.Row>
-
+        <div>
+            <Container text>
+            <Grid columns={2}>
+            <Grid.Row>
+                <Grid.Column width={4}>
+                    <Slidebar></Slidebar>
                 </Grid.Column>
-        </Segment>
-        </Grid>
-   
+                <Grid.Column width={6}>
+                    <Container text>
+                    <Main />
+                    </Container>
+                    </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+                </Container>
+            </div>
     )
 }
 
-const FETCH_NOTES_QUERY = gql`
-{
-getNotes
-{
-  id
-  body
-  username
-  createdAt
-  comments
-  {
-      id
-      body
-  }
-}
-}`
 
 export default Home;

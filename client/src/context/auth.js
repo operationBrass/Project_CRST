@@ -26,11 +26,10 @@ function authReducer(state, action)
 
 function AuthProvider(props) {
     const [state, dispatch] = useReducer(authReducer, { user: null });
-    
-    function login(userData) {
+    function login(data) {
         dispatch({
             type: 'LOGIN',
-            payload: userData
+            payload: data
             
         })
     }
