@@ -3,6 +3,7 @@ const { gql } = require("apollo-server");
 module.exports = gql`
     type Note{
         id: ID!
+        title: String!
         body: String!
         createdAt: String!
         username: String!
@@ -34,7 +35,7 @@ module.exports = gql`
     type Mutation{
         register(registerInput: RegisterInput): User!
         login(username:String!,password: String!): User!
-        createNote(body:String!): Note!
+        createNote(title: String!, body:String!): Note!
         deletePost(body:String!): String! # it does not matter what this returns as long it deletes..
         createComment(noteId:String!,body:String!): Note!
         deleteComment(noteId: ID!, commentId: ID!): Note!

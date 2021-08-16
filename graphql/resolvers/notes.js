@@ -34,8 +34,8 @@ Mutation: {
       
         //if we make it past the above we have no errors 
         const newNote = new Note({
-            body,
-            user: user.id,
+            body: user.body,
+            title: user.title,
             username: user.username,
             createdAt: new Date().toISOString()
         });
