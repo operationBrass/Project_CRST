@@ -27,32 +27,25 @@ module.exports = {
         }
     },
 Mutation: {
-    async createNote(parent,{body},context){
-        
+    async createNote(parent,{body, title},context){
         //checking the user has valid token
-        const user = checkAuth(context);
-      
         //if we make it past the above we have no errors 
-        const newNote = new Note({
-            body: user.body,
-            title: user.title,
-            username: user.username,
+        const addNote = new Note({
+            title: body.title,
+            body: body.body,
+            //user: user.id,
+            //username: user.username,
             createdAt: new Date().toISOString()
         });
-        const note = newNote.save();
+        const note = await addNote.save();
         return note;
         },
         async deletePost(parent,{noteId},context){
-            const user = checkAuth(context);
             try{
                 const note = await Note.findById(noteId)
-                if(user.username === note.username){
+                {
                     await note.delete();
                     return "Note has been deleted";
-                }
-                else
-                {
-                    throw new Error("user not associated with note.")
                 }
             }catch(err){throw new Error(err)}        
         }

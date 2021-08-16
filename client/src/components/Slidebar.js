@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import classNames from 'classnames'
+import react from 'react'
 
 function Slidebar(props)
 {
@@ -7,10 +6,10 @@ function Slidebar(props)
       
             <div className="ui sidebar overlay left inverted menu visible">
         <ul>
-            <li className="item link"> Home </li>
-            <li className="item link"> Manage Notes </li>
+            <li className="item link"> <a href="/">Home </a> </li>
+            <li className="item link"> <a href="/post">Add Note </a></li>
             <li className="item link"> Browse </li>
-            <li className="item link"> Logout </li>
+            <li className="item link"> <a href="/login">Login </a></li>
             </ul></div>
         )
 };

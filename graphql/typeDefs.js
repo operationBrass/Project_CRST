@@ -6,13 +6,11 @@ module.exports = gql`
         title: String!
         body: String!
         createdAt: String!
-        username: String!
         comments: [Comment]! #return array even if empty
     },
     type Comment{
         id: ID!
         createdAt: String!
-        username: String!
         body: String!
     }
     type User{

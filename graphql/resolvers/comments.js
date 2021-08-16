@@ -1,12 +1,11 @@
 const {AuthenticationError,UserInputError} = require("apollo-server");
 const Note = require("../../models/Note");
-
 const checkAuth = require("../../util/checkAuth")
 
 module.exports = {
     Mutation: {
         createComment: async(parent,{noteId,body},context) => {
-            const username = checkAuth(context)
+         
             if(body.trim === "")
             {
                 throw new UserInputError('Please type a comment first!',{
@@ -19,7 +18,6 @@ module.exports = {
             if (note){
                 note.comments.unshift({ //unshift is to put new comments ontop
                     body,
-                    username,
                     createdAt: new Date().toISOString()
                 });
                 await note.save();
@@ -27,7 +25,7 @@ module.exports = {
             } else throw new UserInputError("Note not found");
         },
         async deleteComment(parent,{noteId,commentId},context){
-            const username = checkAuth(context);
+          
             const note = await Note.findById(noteId)
             if(note)
             {

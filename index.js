@@ -4,7 +4,6 @@ const mongoose  = require('mongoose');
 
 //relative imports
 const Note = require ('./models/Note');
-
 const {MONGODB} = require('./config'); // destructing.. is a file and not a dependency..
 const typeDefs = require('./graphql/typeDefs')
 const resolvers = require('./graphql/resolvers/')

@@ -10,9 +10,9 @@ function Comments(props) {
     <List.Item>
       <Image avatar src='/images/avatar/small/rachel.png' />
       <List.Content>
-        <List.Header as='a'>{username} {createdAt}</List.Header>
+        <List.Header as='a'></List.Header>
         <List.Description>
-          {body}
+          {body} -- {createdAt}
         </List.Description>
       </List.Content>
     </List.Item>

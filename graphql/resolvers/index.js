@@ -1,14 +1,14 @@
-const noteResolvers = require('./notes');
-const userResolvers = require('./users');
+const notesResolvers = require('./notes');
+const usersResolvers = require('./users');
 const commentsResolvers = require('./comments');
 
 module.exports = {
     Query: {
-        ...noteResolvers.Query // spread operator
+        ...notesResolvers.Query // spread operator
     },
     Mutation:{
-        ...userResolvers.Mutation,
-        ...noteResolvers.Mutation,
+        ...usersResolvers.Mutation,
+        ...notesResolvers.Mutation,
         ...commentsResolvers.Mutation
     }
 }

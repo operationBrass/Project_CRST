@@ -1,8 +1,7 @@
-import React, {useState} from 'react'
+import React from 'react'
 import Main from '../components/Main'
 import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
-import Heading from '../components/Header'
 import Slidebar from '../components/Slidebar';
 import { Container, Grid } from 'semantic-ui-react';
 
