@@ -56,7 +56,7 @@ function Login(props)
                         value={values.password}
                         onChange={onChange}
                     />
-                    <Button onClick={onSubmit} color='teal' fluid size='large'>
+                    <Button onClick={onSubmit} color='blue' fluid size='large'>
                         Register
                     </Button>
                 </Segment>

@@ -10,6 +10,7 @@ function Slidebar(props)
             <li className="item link"> <a href="/post">Add Note </a></li>
             <li className="item link"> Browse </li>
             <li className="item link"> <a href="/login">Login </a></li>
+            <li className="item link"> <a href="/register">Register </a></li>
             </ul></div>
         )
 };
