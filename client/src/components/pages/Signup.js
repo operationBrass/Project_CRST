@@ -17,7 +17,6 @@ function Register()
 
     const onSubmit = (event) => {
         event.preventDefault();
-        
     }
 
     //semantic template sign in / registter form with modified event handling and modified styling etc.
@@ -65,8 +64,5 @@ function Register()
             </div>
     );
 }
-
-
-
 
 export default Register;
