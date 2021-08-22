@@ -1,43 +1,40 @@
-import React, {useState, useEffect} from 'react'
-import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
+import { Header, Message } from 'semantic-ui-react'
+
 import CodeMirror from '@uiw/react-codemirror';
 import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
-import { Header, Message} from 'semantic-ui-react'
 
-const RECORD = 0;
 
-function Main() {
 
-    const { loading, data,error }  = useQuery(FETCH_NOTES_QUERY);
+function Notes() {
+
+    const code = 'const a = 0;';
+
+
+   /* const { loading, data,error }  = useQuery(FETCH_NOTES_QUERY);
     if (loading) return 'Loading...';
     if (error) return 'error....'
-    const code = data.getNotes[RECORD].body;
+    const code = data.getNotes[RECORD].body;*/
    
     return (
+
         <div className="pusher bottom">
+
             <Header as='h4' attached='top'>
-                <Message  >{data.getNotes[RECORD].title} </Message>
+                <Message  ></Message>
             </Header>
             
-            <CodeMirror
-                value={code}
-                options={{
-                    theme: 'monokai',
-                    keyMap: 'sublime',
-                    mode: 'jsx',
-                    lineHeight: '20px',
-                    minLines: '50'
-                }}
-            />
+         
+<CodeMirror
+  value={code}
+  options={{
+    theme: 'monokai',
+    keyMap: 'sublime',
+    mode: 'jsx',
+  }}
+/>
             <Header as="h5">Comments</Header>
-              
-             
-            {data.getNotes[RECORD].comments.map(comment=> {
-                return <Message color="green" key={comment.id}>{comment.body}</Message>
-            })}
-                 
         </div>)
 }
 
@@ -57,4 +54,4 @@ getNotes
 }
 }`
 
-export default Main;
+export default Notes;

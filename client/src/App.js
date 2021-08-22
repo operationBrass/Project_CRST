@@ -1,5 +1,10 @@
 import './App.css';
+import 'semantic-ui-css/semantic.min.css';
 import Home from './components/pages/Home';
+import Login from './components/pages/Login';
+import Signup from './components/pages/Signup'
+import NewNote from './components/pages/NewNote'
+
 import React from 'react';
 import {
   ApolloClient,
@@ -8,7 +13,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route  } from 'react-router-dom';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -35,10 +40,24 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <div className="App">
-      <Home></Home>
-    </div>
+    <ApolloProvider client={client}>
+      <Router>
+        <Route exact path="/">
+          <Home></Home>
+        </Route>
+        <Route exact path="/login">
+          <Login></Login>
+        </Route>
+        <Route exact path="/register">
+          <Signup></Signup>
+        </Route>
+        <Route exact path="/post">
+          <NewNote></NewNote>
+        </Route>
+      </Router>
+    </ApolloProvider>
   );
+
 }
 
 export default App;
