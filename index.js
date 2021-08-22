@@ -8,7 +8,7 @@ const resolvers = require('./graphql/resolvers/')
 const { authMiddleware } = require('./util/auth');
 const db = require('./config');
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5000;
 const app = express();
 
 
@@ -32,11 +32,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.use(express.static(path.join(__dirname, './client/build')));
 }
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 
 db.once('open', () => {

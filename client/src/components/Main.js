@@ -12,7 +12,7 @@ function Main() {
 
     const { loading, data,error }  = useQuery(FETCH_NOTES_QUERY);
     if (loading) return 'Loading...';
-    if (error) throw new Error("error while retrieving comments");
+    if (error) return 'error....'
     const code = data.getNotes[RECORD].body;
    
     return (
@@ -46,7 +46,6 @@ const FETCH_NOTES_QUERY = gql`
 getNotes
 {
   id
-  title
   body
   createdAt
   comments

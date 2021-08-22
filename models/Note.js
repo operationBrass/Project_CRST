@@ -3,10 +3,12 @@ const { model, Schema } = require('mongoose');
 const noteSchema = new Schema({
     title: String,
     body: String,
+    username: String,
     createdAt: String,
     comments: [
         {
-            body:String,
+            body: String,
+            username: String,
             createdAt: String
         }
     ],
