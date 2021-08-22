@@ -21,6 +21,9 @@ const resolvers = {
         },
         deleteNote: function (parent, args) {
             return Note.findByIdAndDelete(args._id);
+        },
+        createComment: function (parent, args) {
+            return Note.findByIdAndUpdate(args._id, args.commentInput, { new: true });
         }
     }
 };

@@ -20,9 +20,12 @@ module.exports = gql`
         username: String!
         password: String!
     }
-
     input NoteInput {
         title: String!
+        body: String!
+    }
+
+    input CommentInput {
         body: String!
     }
     
@@ -33,6 +36,7 @@ module.exports = gql`
     
     type Mutation {
         createNote(noteInput: NoteInput): Note
+        createComment(commentInput: CommentInput): Note
         deleteNote(_id: ID): Note
         updateNote(_id: ID, noteInput:NoteInput): Note
     }`;
