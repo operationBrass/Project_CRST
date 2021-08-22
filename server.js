@@ -1,9 +1,9 @@
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
 const PORT = process.env.PORT || 3000;
-const typeDefs = require("./graphql/typeDefs");
-const resolvers = require("./graphql/resolvers");
-const db = require("./config/connection");
+const typeDefs = require("./server/graphql/typeDefs");
+const resolvers = require("./server/graphql/resolvers");
+const db = require("./server/config/connection");
 const path = require('path');
 
 
