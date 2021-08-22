@@ -33,7 +33,7 @@ module.exports = gql`
     
     type Mutation {
         createNote(noteInput: NoteInput): Note
-        deleteNote(_id: ID!): Note
-        updateNote(_id: ID!, noteInput:NoteInput): Note
+        deleteNote(_id: ID): Note
+        updateNote(_id: ID, noteInput:NoteInput): Note
     }`;
 

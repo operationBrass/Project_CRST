@@ -7,7 +7,7 @@ const resolvers = {
             return Note.find({});
         },
         getNote: function (parent, args) {
-            return Note.findById(args.id)
+            return Note.findById(args._id)
         }
     },
     Mutation: {
@@ -16,11 +16,11 @@ const resolvers = {
             return note.save();
         },
         updateNote: function (parent, args) {
-            return Note.findByIdAndUpdate(args.id, args.noteInput, { new: true });
+            return Note.findByIdAndUpdate(args._id, args.noteInput, { new: true });
             
         },
         deleteNote: function (parent, args) {
-            return Note.findByIdAndDelete(args.id);
+            return Note.findByIdAndDelete(args._id);
         }
     }
 };
