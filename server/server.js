@@ -1,20 +1,10 @@
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
-const PORT = process.env.PORT || 3000; 
+const PORT = process.env.PORT || 3000;
+const typeDefs = require("./graphql/typeDefs");
+const resolvers = require("./graphql/resolvers");
+const db = require("./config/connection");
 
-// The GraphQL schema
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-// A map of functions which return data for the schema.
-const resolvers = {
-  Query: {
-    hello: function() { return 'world' }
-  }
-};
 
 async function startApolloServer() {
     // Construct a schema, using GraphQL schema language
@@ -27,9 +17,16 @@ async function startApolloServer() {
     const app = express();
     server.applyMiddleware({ app });
 
-    await new Promise(resolve => app.listen({ port: PORT }, resolve));
-    console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
-    return { server, app };
+    app.use(express.urlencoded({ extended: false }));
+    app.use(express.json());
+
+    db.once('open', () => {
+        app.listen(PORT, () => {
+          console.log(`API server running on port ${PORT}!`);
+          console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+        });
+      });
+      
 
 }
 
