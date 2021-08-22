@@ -1,6 +1,6 @@
-const {AuthenticationError,UserInputError} = require("apollo-server");
+const {AuthenticationError,UserInputError} = require("apollo-server-express");
 const Note = require("../../models/Note");
-const checkAuth = require("../../util/checkAuth")
+
 
 module.exports = {
     Mutation: {

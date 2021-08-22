@@ -1,5 +1,4 @@
 const Note = require('../../models/Note');
-const checkAuth = require("../../util/checkAuth");
 
 module.exports = {
     Query:{
@@ -28,13 +27,11 @@ module.exports = {
     },
 Mutation: {
     async createNote(parent,{body, title},context){
-        //checking the user has valid token
-        //if we make it past the above we have no errors 
         const addNote = new Note({
             title: body.title,
             body: body.body,
-            //user: user.id,
-            //username: user.username,
+            user: user.id,
+            username: user.username,
             createdAt: new Date().toISOString()
         });
         const note = await addNote.save();

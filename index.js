@@ -1,32 +1,47 @@
-//dependency imports 
-const {ApolloServer} = require('apollo-server');
-const mongoose  = require('mongoose');
+const express = require('express');
+const { ApolloServer } = require('apollo-server-express');
+const path = require('path');
 
-//relative imports
-const Note = require ('./models/Note');
-const {MONGODB} = require('./config'); // destructing.. is a file and not a dependency..
 const typeDefs = require('./graphql/typeDefs')
 const resolvers = require('./graphql/resolvers/')
+// Import `authMiddleware()` function to be configured with the Apollo Server
+const { authMiddleware } = require('./util/auth');
+const db = require('./config');
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
+const app = express();
+
+
 
 const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: ({req}) => ({req}) 
-    /* we take the request from express
-    we pass it into the context so we can access the request body*/
+  typeDefs,
+  resolvers,
+  // Add context to our server so data from the `authMiddleware()` function can pass data to our resolver functions
+  context: authMiddleware,
 });
 
-mongoose.connect(MONGODB,{useNewUrlParser: true,useUnifiedTopology: true})
-    .then(() => {
-        console.log("mongoDB connected")
-        return server.listen({port: PORT});
-    })
-    .then((res) => {
-        console.log(`Server running at ${res.url}`)
-    })
-    .catch(err => {
-        console.log(err);
-    })
+async function startServer()
+{
+  await server.start()  
+  server.applyMiddleware({ app });
+}
 
+startServer();
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+}
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
+
+db.once('open', () => {
+  app.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}!`);
+    console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+  });
+});
