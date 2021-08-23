@@ -20,6 +20,12 @@ module.exports = gql`
         username: String!
         password: String!
     }
+
+    type Auth {
+    token: ID!
+    user: User
+  }
+
     input NoteInput {
         title: String!
         body: String!
@@ -32,6 +38,7 @@ module.exports = gql`
     type Query{
         getNotes: [Note] # get all notes
         getNote(noteId: ID!): Note # get a singe note.
+
     }
     
     type Mutation {
@@ -39,5 +46,7 @@ module.exports = gql`
         createComment(commentInput: CommentInput): Note
         deleteNote(_id: ID): Note
         updateNote(_id: ID, noteInput:NoteInput): Note
+        addUser(username: String!, password: String!): Auth
+        login(email: String!, password: String!): Auth
     }`;
 

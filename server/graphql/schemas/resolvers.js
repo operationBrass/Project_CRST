@@ -1,4 +1,5 @@
 const Note = require("../../models/Note");
+const { signToken } = require('../../utils/auth');
 
 
 const resolvers = {
@@ -11,8 +12,8 @@ const resolvers = {
         }
     },
     Mutation: {
-        createNote: function (parent, args) {
-            const note = new Note(args.noteInput);
+        createNote: async function (parent, args) {
+            const note = await new Note(args.noteInput);
             return note.save();
         },
         updateNote: function (parent, args) {
@@ -24,8 +25,13 @@ const resolvers = {
         },
         createComment: function (parent, args) {
             return Note.findByIdAndUpdate(args._id, args.commentInput, { new: true });
+        },
+        addUser: async (parent, { name, password }) => {
+            const user = await User.create({ name, password });
+            const token = signToken(profile);
+            return { token, user };
         }
     }
-};
+}
 
 module.exports = resolvers;

@@ -1,32 +1,27 @@
 import React from 'react'
-import Header from '../Header'
+import Heading from '../Header'
 import Notes from '../Notes'
 import SideBar from '../SideBar'
-import { Container, Grid, Message} from 'semantic-ui-react';
+import { Container, Grid, Message,Header} from 'semantic-ui-react';
 
 
 function Home() {
-
-    return (
-        <div>
-            <Header></Header>
-            <Container text>
-                <Grid columns={2}>
-                    <Grid.Row>
+    return (<div>
+            <Grid columns={2}>
+            <Grid.Row>
+            <Heading></Heading>
                 <Grid.Column width={4}>
+                    
                     <SideBar></SideBar>
                 </Grid.Column>
                 <Grid.Column width={6}>
-                    <Container text>
-                    <Notes />
-                    </Container>
-                    </Grid.Column>
-                    </Grid.Row>
-                </Grid>
+                  <br></br>
+        
+        <Container text> 
+        
+                        <Notes></Notes>
 
-            </Container>
-            </div>);
+                            <br />
+   </Container></Grid.Column></Grid.Row></Grid></div>);
 }
-
-
 export default Home;
