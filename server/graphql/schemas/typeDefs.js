@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server-express');
 
-module.exports = gql`
+const typeDefs = gql`
     type Note{
         _id: ID
         title: String!
@@ -15,6 +15,7 @@ module.exports = gql`
         username: String!
         createdAt: String!
     }
+
     type User{
         _id: ID
         username: String!
@@ -44,9 +45,12 @@ module.exports = gql`
     type Mutation {
         createNote(noteInput: NoteInput): Note
         createComment(commentInput: CommentInput): Note
+        deleteComment(_id: ID): Note
         deleteNote(_id: ID): Note
+        updateComment(_id: ID, commentInput: CommentInput): Note
         updateNote(_id: ID, noteInput:NoteInput): Note
-        addUser(username: String!, password: String!): Auth
-        login(email: String!, password: String!): Auth
+        registerUser(username: String!, password: String!): Auth
+        login(username: String!, password: String!): Auth
     }`;
 
+module.exports = typeDefs;

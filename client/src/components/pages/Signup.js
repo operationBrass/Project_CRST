@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import { REGISTER_USER } from '../../utils/noteMutations'
+import { useMutation } from '@apollo/client';
+import Auth from '../../utils/auth';
+
 
 function Register()
 {
@@ -7,27 +11,39 @@ function Register()
     const [values, setValues] = useState({
         username: "",
         password: "",
-        confirmPass: "",
     });
+
+    const [registerUser, { error, data }] = useMutation(REGISTER_USER);
 
     const onChange = (event) => {
         //seems like a better way per mr 'Classed' examples
         setValues({...values,[event.target.name]:event.target.value})
     };
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
-    }
-
+    console.log(values)
+        try {
+          const { data } = await registerUser({
+            variables: { ...values },
+          });
+    
+          Auth.login(data.registerUser.token);
+        } catch (e) {
+          console.error(e);
+        }
+    };
+    
     //semantic template sign in / registter form with modified event handling and modified styling etc.
     return (
         <div>
         <div className="ui divider"></div>
         <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as='h2' color='teal' textAlign='center'>
-                <Image src='/logo.png' /> Register a new account
-            </Header>
+            <Header as='h2' color='orange' textAlign='center'>
+                 Register a new account
+                    </Header>
+                    {data ? <Message color="orange">Successfully registered<br></br><a href="/"> Click for Home </a> </Message> : <p></p>}    
             <Form size='large'>
                 <Segment>
                     <Form.Input name="username" value={values.username} onChange={onChange} fluid icon='user' iconPosition='left' placeholder='Username' />
@@ -41,17 +57,7 @@ function Register()
                         value={values.password}
                         onChange={onChange}
                     />
-                     <Form.Input
-                        fluid
-                        icon='lock'
-                        iconPosition='left'
-                        placeholder='Confirm Password'
-                        type='password'
-                        name='confirmPass'
-                        value={values.confirmPass}
-                        onChange={onChange}
-                    />
-                    <Button onClick={onSubmit} color='teal' fluid size='large'>
+                    <Button onClick={onSubmit} color='orange' fluid size='large'>
                         Register
                     </Button>
                 </Segment>

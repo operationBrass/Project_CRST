@@ -1,6 +1,6 @@
-const Note = require("../../models/Note");
-const { signToken } = require('../../utils/auth');
-
+const {Note, User} = require('../../models')
+const { signToken } = require('../../../client/src/utils/auth');
+const { AuthenticationError } = require('apollo-server-express');
 
 const resolvers = {
     Query: {
@@ -26,11 +26,27 @@ const resolvers = {
         createComment: function (parent, args) {
             return Note.findByIdAndUpdate(args._id, args.commentInput, { new: true });
         },
-        addUser: async (parent, { name, password }) => {
-            const user = await User.create({ name, password });
-            const token = signToken(profile);
+        registerUser: async (parent, { username, password }) => {
+            const user = await User.create({ username, password });
+            const token = signToken(user);
             return { token, user };
-        }
+        },
+        login: async (parent, { username, password }) => {
+            const user = await User.findOne({ username });
+        
+            if (!user) {
+                throw new AuthenticationError('No user with this username found!');
+            }
+        
+            const correctPw = await user.isCorrectPassword(password);
+        
+            if (!correctPw) {
+                throw new AuthenticationError('Incorrect password!');
+            }
+        
+            const token = signToken(user);
+            return { token, user };
+        },
     }
 }
 
