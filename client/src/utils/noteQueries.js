@@ -6,5 +6,13 @@ query getNotes {
         _id
         title
         body
+        username
+        comments
+        {
+            _id
+            body
+            createdAt
+        }
+        createdAt
     }
 }`;
