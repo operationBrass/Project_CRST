@@ -43,7 +43,7 @@ function Login(props)
             <Header as='h2' color='teal' textAlign='center'>
                 Login to Project-CRST
                     </Header>
-                {data ? <Message color="blue">Successfully logged on<br></br><a href="/"> Click for Home </a> </Message> : <p></p>}    
+                {data ? <Message color="blue">Successfully logged on<br></br><a href="/"> Return Home </a> </Message> : <p></p>}    
             <Form size='large'>
                 <Segment>
                     <Form.Input name="username" value={values.username} onChange={onChange} fluid icon='user' iconPosition='left' placeholder='Username' />

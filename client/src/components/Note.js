@@ -1,4 +1,3 @@
-
 import { Header, Message } from 'semantic-ui-react'
 import { useQuery } from '@apollo/client';
 import CodeMirror from '@uiw/react-codemirror';
@@ -24,7 +23,13 @@ function Note() {
           <Message>{title}</Message>
             </Header>
             
-         
+            <Button animated ui left attached>
+      <Button.Content visible>Previous</Button.Content>
+      <Button.Content hidden>
+        <Icon name='arrow left' />
+      </Button.Content>
+        </Button>
+       
 <CodeMirror
   value={body}
   options={{
@@ -32,7 +37,20 @@ function Note() {
     keyMap: 'sublime',
     mode: 'jsx',
   }}
-/>
+        />
+  <br></br>
+<Container textAlign="center">
+        <Button color="inverted black" icon labelPosition='left'>
+      Prev
+      <Icon name='left arrow' />
+    </Button>
+
+<Button color="inverted black" icon labelPosition='right'>
+      Next
+      <Icon name='right arrow' />
+    </Button>
+
+
 <Header as="h5">Comments</Header>
               
               {data.getNotes[0].comments.map(note => {
@@ -42,5 +60,5 @@ function Note() {
           </div>)
 }
 
-
 export default Note;
+
