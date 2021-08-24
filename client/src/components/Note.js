@@ -5,8 +5,6 @@ import CodeMirror from '@uiw/react-codemirror';
 import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
 import { GET_NOTES } from '../utils/noteQueries';
-import Comment from './Comment'
-
 
 function Note() {
 
