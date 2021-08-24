@@ -12,9 +12,19 @@ const resolvers = {
         }
     },
     Mutation: {
-        createNote: async function (parent, args) {
-            const note = await new Note(args.noteInput);
-            return note.save();
+        createNote: async function (parent, args,context) {
+
+            console.log(context.user._id);
+        const newNote = new Note({
+            title: args.title,
+            body: args.body,
+            username: user.username,
+            createdAt: new Date().toISOString()
+        });
+            
+            const note = newNote.save();
+            return note;
+
         },
         updateNote: function (parent, args) {
             return Note.findByIdAndUpdate(args._id, args.noteInput, { new: true });
@@ -31,9 +41,9 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        login: async (parent, { username, password }) => {
+        login: async (parent, { username, password,context }) => {
             const user = await User.findOne({ username });
-        
+            
             if (!user) {
                 throw new AuthenticationError('No user with this username found!');
             }
@@ -45,6 +55,7 @@ const resolvers = {
             }
         
             const token = signToken(user);
+            
             return { token, user };
         },
     }

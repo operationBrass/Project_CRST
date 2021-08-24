@@ -6,7 +6,7 @@ const typeDefs = gql`
         title: String!
         body: String!
         username: String!
-        comments: [Comment] #return array even if empty
+        comments: [Comment]! #return array even if empty
         createdAt: String!
     }
     type Comment{

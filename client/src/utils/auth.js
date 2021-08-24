@@ -1,31 +1,37 @@
-const jwt = require('jsonwebtoken');
+import decode from 'jwt-decode';
 
-const secret = 'exxxxxxxpooooooooosurrrrrrreeeeeeee';
-const expiration = '1h';
+class AuthService {
+  getProfile() {
+    return decode(this.getToken());
+  }
 
-module.exports = {
-  authMiddleware: function ({ req }) {
-    let token = req.body.token || req.query.token || req.headers.authorization;
+  loggedIn() {
+    const token = this.getToken();
+    return token && !this.isTokenExpired(token) ? true : false;
+  }
 
-    if (req.headers.authorization) {
-      token = token.split(' ').pop().trim();
+  isTokenExpired(token) {
+    const decoded = decode(token);
+    if (decoded.exp < Date.now() / 1000) {
+      localStorage.removeItem('id_token');
+      return true;
     }
+    return false;
+  }
 
-    if (!token) {
-      return req;
-    }
+  getToken() {
+    return localStorage.getItem('id_token');
+  }
 
-    try {
-      const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      req.user = data;
-    } catch {
-      console.log('Invalid token');
-    }
+  login(idToken) {
+    localStorage.setItem('id_token', idToken);
+    window.location.assign('/');
+  }
 
-    return req;
-  },
-  signToken: function ({ email, username, _id }) {
-    const payload = { email, username, _id };
-    return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
-  },
-};
+  logout() {
+    localStorage.removeItem('id_token');
+    window.location.reload();
+  }
+}
+
+export default new AuthService();

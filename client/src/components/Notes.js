@@ -43,12 +43,14 @@ const FETCH_NOTES_QUERY = gql`
 getNotes
 {
   id
+  title
   body
   createdAt
   comments
   {
       id
       body
+      username
       createdAt
   }
 }
