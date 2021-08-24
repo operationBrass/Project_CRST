@@ -1,6 +1,6 @@
 import React from 'react'
 import Heading from '../Header'
-import Notes from '../Notes'
+import Notes from '../Note'
 import SideBar from '../SideBar'
 import { Container, Grid, Message, Header } from 'semantic-ui-react';
 import { useQuery } from '@apollo/client';
