@@ -6,7 +6,6 @@ import { Container, Grid, Message, Header } from 'semantic-ui-react';
 import { useQuery } from '@apollo/client';
 import { GET_NOTES } from '../../utils/noteQueries'
 
-
 function Home() {
 
     const { loading, data } = useQuery(GET_NOTES);
