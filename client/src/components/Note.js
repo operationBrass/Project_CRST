@@ -4,6 +4,7 @@ import CodeMirror from '@uiw/react-codemirror';
 import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
 import { GET_NOTES } from '../utils/noteQueries';
+import { Button,Container,Icon} from 'semantic-ui-react'
 
 function Note() {
 
@@ -48,8 +49,9 @@ function Note() {
 <Button color="inverted black" icon labelPosition='right'>
       Next
       <Icon name='right arrow' />
-    </Button>
-
+          </Button>
+          
+</Container>
 
 <Header as="h5">Comments</Header>
               

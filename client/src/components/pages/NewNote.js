@@ -1,35 +1,55 @@
 import React, { useState } from 'react'
-import { Button, Form, Container, Grid, Header} from 'semantic-ui-react'
+import { Button, Form, Container, Grid,Message, TableBody} from 'semantic-ui-react'
 import CodeMirror from '@uiw/react-codemirror';
 import 'codemirror/keymap/sublime';
 import 'codemirror/theme/monokai.css';
 import SideBar from '../SideBar'
 import Heading from '../Header';
+import { POST_NOTE } from '../../utils/noteMutations';
+import { useMutation } from '@apollo/client';
+import Auth from '../../utils/auth';
 
 function Post() {
 
-    const [codebox, setCodebox] = useState("");
+    const [body, setBody] = useState("");
     const [title, setTitle] = useState("");
+
+    const [createNote, { error, data }] = useMutation(POST_NOTE);
 
 
     const onChange = (event) => {
        
         if (event.target === undefined) {
-            return setCodebox(event.doc.getValue())
+            return setBody(event.doc.getValue())
         }
         else {
             setTitle(event.target.value)
         }
     }
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
 
-    }
+        if (Auth.loggedIn) {
+            let username = Auth.getProfile()
+            username = username.data.username
+            const newNote = {username:username, title:title,body:body}
+            try {
+                const { data } = await createNote({
+                    variables: newNote,
+                });
+            } catch (e) {
+                console.log(e);
+            }
+            console.log("errorrs")
+        }
+        else {
+            throw new Error("not logged in");
+        }
+    };
 
-
-    const code = "your code here";
     return (<div>
+         {data ? <Message color="green">Note has been added<br></br><a href="/"> Click for Home </a> </Message> : <p></p>}    
             <Grid columns={2}>
             <Grid.Row>
             <Heading></Heading>
@@ -40,7 +60,7 @@ function Post() {
                 <Grid.Column width={6}>
                     <Container text></Container>
         
-        <Container text> <Form>
+                    <Container text> <Form>
         <Form.Field>
             <label>Title</label>
             <input name="title" onChange={onChange} value={title} placeholder='Title' />

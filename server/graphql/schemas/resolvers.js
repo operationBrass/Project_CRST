@@ -12,20 +12,18 @@ const resolvers = {
         }
     },
     Mutation: {
-        createNote: async function (parent, args,context) {
-
-            console.log(context.user._id);
-        const newNote = new Note({
-            title: args.title,
-            body: args.body,
-            username: user.username,
-            createdAt: new Date().toISOString()
-        });
-            
+        async createNote(parent, { title, body, username },error) {
+                //checking the user has valid token
+                //if we make it past the above we have no errors 
+            console.log("aaaaaa",title,body,username)
+                const newNote = new Note({
+                    title: title,
+                    body:body,
+                    username: username
+                });
             const note = newNote.save();
             return note;
-
-        },
+            },
         updateNote: function (parent, args) {
             return Note.findByIdAndUpdate(args._id, args.noteInput, { new: true });
             

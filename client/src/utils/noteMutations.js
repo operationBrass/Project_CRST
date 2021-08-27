@@ -14,16 +14,19 @@ export const REGISTER_USER = gql`
 
 export const POST_NOTE = gql`
 mutation createNote(
-    $title: String!
-    $codebox: String!
-){createNote(title:$title,body:$codebox){
-    id
-    title
-    body
-    createdAt
-    comments{
-        id body createdAt
-    }
+   $title: String!
+   $body: String!
+   $username: String!
+){createNote(
+    title:$title,
+    body:$body,
+    username:$username
+){
+  _id
+  title
+  body
+  username
+  createdAt
 }
 }`
        

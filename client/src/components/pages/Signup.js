@@ -22,7 +22,6 @@ function Register()
 
     const onSubmit = async (event) => {
         event.preventDefault();
-    console.log(values)
         try {
           const { data } = await registerUser({
             variables: { ...values },

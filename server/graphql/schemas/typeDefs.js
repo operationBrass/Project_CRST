@@ -3,11 +3,11 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
     type Note{
         _id: ID
-        title: String!
-        body: String!
-        username: String!
+        title: String
+        body: String
+        username: String
         comments: [Comment]! #return array even if empty
-        createdAt: String!
+        createdAt: String
     }
     type Comment{
         _id: ID
@@ -27,28 +27,23 @@ const typeDefs = gql`
     user: User
   }
 
-    input NoteInput {
-        title: String!
-        body: String!
-    }
-
     input CommentInput {
         body: String!
+        username: String!
     }
     
     type Query{
         getNotes: [Note] # get all notes
         getNote(noteId: ID!): Note # get a singe note.
-
     }
     
     type Mutation {
-        createNote(noteInput: NoteInput): Note
+        createNote(title:String!, body:String!, username:String!): Note
         createComment(commentInput: CommentInput): Note
         deleteComment(_id: ID): Note
         deleteNote(_id: ID): Note
         updateComment(_id: ID, commentInput: CommentInput): Note
-        updateNote(_id: ID, noteInput:NoteInput): Note
+        updateNote(_id: ID): Note
         registerUser(username: String!, password: String!): Auth
         login(username: String!, password: String!): Auth
     }`;
