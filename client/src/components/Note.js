@@ -21,7 +21,7 @@ function Note() {
         <div className="pusher bottom">
 
             <Header as='h4' attached='top'>
-          <Message>{title} by {username}</Message>
+          <Message>{title} by </Message>
             </Header>
        
 <CodeMirror
@@ -49,7 +49,7 @@ function Note() {
 <Header as="h5">Comments</Header>
               
               {data.getNotes[0].comments.map(note => {
-                  return <Message color="green" key={note.id}> {note.body} <br/> reply from {note.username} </Message>
+                  return <Message color="green" key={note.id}> {note.body} <br/> reply from  </Message>
               })}
                    
           </div>)
